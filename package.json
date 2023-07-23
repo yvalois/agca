@@ -4,14 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "homepage": ".",
-  "engines": {
-    "node": "16.13.1"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/app/",
-    "start": "vite preview",
-    "server":"npm run build && vite preview"
+    "preview": "vite preview",
+    "server":"npm run build && vite preview --base=/app"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.2",
