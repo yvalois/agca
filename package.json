@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build --base=/app/",
     "preview": "vite preview",
-    "server":"npm run build && vite preview --base=/app"
+    "start":"npm run build && vite preview --base=/app"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.2",
