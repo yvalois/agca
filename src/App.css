@@ -1,0 +1,35 @@
+.border-token{
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.border-token:hover{
+    border: 1px solid rgb(100, 57, 244);
+}
+
+.nav-item{
+    color: #fff;
+}
+
+.addtoken:hover{
+    color: #fff!important;
+    background-color: #000000!important;
+}
+
+
+.nav-bcrumb a{
+    color: rgb(124, 124, 124);
+}
+
+.active {
+    color: rgb(7, 0, 201)!important;
+}
+
+@media screen and (max-width: 575px) {
+    .tokens-row{
+        gap: 10px;
+    }
+}
+    
