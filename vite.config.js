@@ -1,6 +1,8 @@
 import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import reactify from '@vitejs/plugin-react'
+
 
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 
@@ -53,6 +55,7 @@ export default defineConfig({
       domain: 'rollup-plugin-node-polyfills/polyfills/domain'
     }
   },
+  base: './',
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
@@ -69,6 +72,9 @@ export default defineConfig({
         NodeModulesPolyfillPlugin()
       ]
     }
+  },
+  define: {
+    'process.env': {}
   },
   build: {
     commonjsOptions: {
