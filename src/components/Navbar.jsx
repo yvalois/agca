@@ -70,11 +70,6 @@ const Navbar = () => {
       if(isConnected && accountAddress === null && is === false && chain?.unsupported !== undefined && chain.unsupported === false) {
         getSign();
         setIs(true)
-      }else if(isConnected && accountAddress === null  && chain?.unsupported !== undefined && chain.unsupported === true ){
-        setIs(false)
-        switchChain()
-      }else if(!isConnected ){      
-        setIs(false)
       }
   }, [isConnected, accountAddress,  chain, is])
 

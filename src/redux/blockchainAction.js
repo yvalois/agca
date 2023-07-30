@@ -83,13 +83,11 @@ export const connectWallet = (address, signer, provider, client) =>  {
 
             //const icoReferContract = new ethers.Contract(ICO_REFER_ADDRESS, icoReferAbi, signer);
 
-            alert("a")
-            alert(address)
             const busdBalance = await busdContract.balanceOf(address);
             console.log(busdBalance);
             const usdtBalance = await usdtContract.balanceOf(address);
             const agcaBalance = await agcaContract.balanceOf(address);
-            alert("e")
+
                 
 
             const bnbBalance = await provider.getBalance(address);

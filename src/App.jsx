@@ -22,7 +22,7 @@ function App() {
   const projectId = '7ecc030dc52cdc0986c6045ad928b12a'
   const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
   const wagmiConfig = createConfig({
-    autoConnect: true,
+    autoConnect: false,
     connectors: w3mConnectors({ projectId, chains }),
     publicClient
   })
