@@ -35,7 +35,7 @@ function App() {
     <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
         <Routes>
           <Route path="/" element={<Layout/>}>
-          <Route index  lement={<Connect/>}/>
+          <Route index  element={<Connect/>}/>
           <Route path="/connect/:refer" element={<Connect/>}/>
           <Route path='/connect' index element={<Connect/>}/>
           <Route path='/form' element={<Form/>}/>
