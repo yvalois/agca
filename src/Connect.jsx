@@ -5,6 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import { useWeb3Modal } from '@web3modal/react'
+import { useAccount, useConnect, useDisconnect, useSignMessage, useNetwork, useSwitchNetwork  } from 'wagmi'
+import {getEthersProvider,getEthersSigner } from './utils/ethers.js'
+import {  getPublicClient, getWalletClient } from '@wagmi/core'
+
+
 const api = import.meta.env.VITE_APP_NODE_ENV === 'production' ? 'https://stingray-app-dnzz9.ondigitalocean.app' : 'http://localhost:3000';
 
 
@@ -12,12 +18,13 @@ const Connect = () => {
   const navigate = useNavigate()
   const {refer} = useParams()
   const { userLoaded, formValiddated, loading } = useSelector(state => state.user)
+  const { accountAddress } = useSelector(state => state.blockchain)
+
   const {referal} = useSelector(state => state.user)
- 
+  const [is, setIs] = useState(false)
   const dispatch = useDispatch()
-  const handleConnect = () => {
-    dispatch(connectWallet())
-  }
+
+
 
 
 
@@ -69,6 +76,36 @@ const Connect = () => {
   }, [userLoaded, formValiddated])
 
 
+  
+  const { isOpen, open, close, setDefaultChain } = useWeb3Modal() 
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount()
+
+  const {connect, connectors, error, isLoading, pendingConnector} = useConnect()
+  const { disconnect } = useDisconnect()
+  const {chain} = useNetwork()
+
+const handleConnect = async() => {
+  const signer = await getEthersSigner(chain?.id)
+  const provider =  getEthersProvider(chain?.id)
+  dispatch(connectWallet(accountAddress, signer, provider))
+  window.localStorage.removeItem("wc@2:core:0.3//keychain")
+
+}
+
+
+  const switchChain = async()=> {
+    const walletClient = await getWalletClient(chain?.id)
+    await walletClient?.switchChain({ id: 56 })
+
+  }
+
+
+  const abrir =()=>{
+    if(!isConnected){
+      open()
+    }
+  }
+
 
   return (
     <div className='container-fluid'>
@@ -85,11 +122,11 @@ const Connect = () => {
             }
             {!loading &&
             <button className='btn btn-primary'
-            onClick={handleConnect}
-            >Conectar</button>
+            onClick={abrir}
+            >{isConnected && accountAddress === null ? 'Conectando...' : 'Conectar'}</button>
             }
         </div>
-        {refer && 
+        {refer &&   
         <div>
             <p>Referido por: <strong>{referAddress}</strong></p> 
         </div>

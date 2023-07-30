@@ -62,48 +62,53 @@ const adminChange = () => ({
     type: 'ADMIN_CHANGE',
 })
 
-export const connectWallet = () => async (dispatch) => {
+export const connectWallet = (address, signer, provider, client) =>  {
+    return async (dispatch)=>{
     dispatch(loading())
     try {
-        const instance = await web3Modal.connect(providerOptions);
-        const provider = new ethers.providers.Web3Provider(instance);
-        const signer = provider.getSigner();
+        // const instance = await web3Modal.connect(providerOptions);
+        // const provider = new ethers.providers.Web3Provider(instance);
+        // const signer = provider.getSigner();
         
-        const accounts = await provider.listAccounts();
+        // const accounts = await provider.listAccounts();
 
         const networkId = await provider.getNetwork();
-
         if (import.meta.env.VITE_APP_NODE_ENV === 'production' && networkId.chainId === 56 ||
-        import.meta.env.VITE_APP_NODE_ENV === 'development' && networkId.chainId === 97) {
-
+            import.meta.env.VITE_APP_NODE_ENV === 'development' && networkId.chainId === 97) {
             const busdContract = new ethers.Contract(BUSD_ADDRESS, erc20Abi, signer);
             const usdtContract = new ethers.Contract(USDT_ADDRESS, erc20Abi, signer);
             const agcaContract = new ethers.Contract(AGCA_ADDRESS, erc20Abi, signer);
             const icoContract = new ethers.Contract(ICO_ADDRESS, icoAbi, signer);
+
+
             //const icoReferContract = new ethers.Contract(ICO_REFER_ADDRESS, icoReferAbi, signer);
 
-            
+            alert("a")
+            alert(address)
+            const busdBalance = await busdContract.balanceOf(address);
+            console.log(busdBalance);
+            const usdtBalance = await usdtContract.balanceOf(address);
+            const agcaBalance = await agcaContract.balanceOf(address);
+            alert("e")
+                
 
-            const busdBalance = await busdContract.balanceOf(accounts[0]);
-            const usdtBalance = await usdtContract.balanceOf(accounts[0]);
-            const agcaBalance = await agcaContract.balanceOf(accounts[0]);
-
-            const bnbBalance = await provider.getBalance(accounts[0]);
+            const bnbBalance = await provider.getBalance(address);
 
             const busdBalanceFormatted = parseFloat(ethers.utils.formatUnits(busdBalance, 18)).toFixed(4);
             const usdtBalanceFormatted = parseFloat(ethers.utils.formatUnits(usdtBalance, 18)).toFixed(4);
             const agcaBalanceFormatted = parseFloat(ethers.utils.formatUnits(agcaBalance, 18)).toFixed(4);
             const bnbBalanceFormatted = parseFloat(ethers.utils.formatUnits(bnbBalance, 18)).toFixed(4);
             const AgcaPrice = await icoContract.AGCA_PRICE()
+
             dispatch(dataLoaded({
                 usdtContract,
                 busdContract,
-                accountAddress: accounts[0],
+                accountAddress: address,
                 bnbBalance: bnbBalanceFormatted,
                 usdtBalance: usdtBalanceFormatted,
                 busdBalance: busdBalanceFormatted,
                 agcaBalance: agcaBalanceFormatted,
-                instance: instance,
+                instance: client,
                 provider: provider,
                 signer: signer,
                 icoContract: icoContract,
@@ -111,30 +116,30 @@ export const connectWallet = () => async (dispatch) => {
                 //icoReferContract: icoReferContract,
             }))
         
-            instance.on('accountsChanged', async(accounts) => {
-                const busdBalance = await busdContract.balanceOf(accounts[0]);
-                const usdtBalance = await usdtContract.balanceOf(accounts[0]);
-                const bnbBalance = await provider.getBalance(accounts[0]);
-                const agcaBalance = await agcaContract.balanceOf(accounts[0]);
+            // instance.on('accountsChanged', async(accounts) => {
+            //     const busdBalance = await busdContract.balanceOf(address);
+            //     const usdtBalance = await usdtContract.balanceOf(address);
+            //     const bnbBalance = await provider.getBalance(address);
+            //     const agcaBalance = await agcaContract.balanceOf(address);
                 
 
-                const busdBalanceFormatted = parseFloat(ethers.utils.formatUnits(busdBalance, 18)).toFixed(4);
-                const usdtBalanceFormatted = parseFloat(ethers.utils.formatUnits(usdtBalance, 18)).toFixed(4);
-                const bnbBalanceFormatted = parseFloat(ethers.utils.formatUnits(bnbBalance, 18)).toFixed(4);
-                const agcaBalanceFormatted = parseFloat(ethers.utils.formatUnits(agcaBalance, 18)).toFixed(4);
+            //     const busdBalanceFormatted = parseFloat(ethers.utils.formatUnits(busdBalance, 18)).toFixed(4);
+            //     const usdtBalanceFormatted = parseFloat(ethers.utils.formatUnits(usdtBalance, 18)).toFixed(4);
+            //     const bnbBalanceFormatted = parseFloat(ethers.utils.formatUnits(bnbBalance, 18)).toFixed(4);
+            //     const agcaBalanceFormatted = parseFloat(ethers.utils.formatUnits(agcaBalance, 18)).toFixed(4);
 
 
-                dispatch(updateBalance({
-                    bnbBalance: bnbBalanceFormatted,
-                    usdtBalance: usdtBalanceFormatted,
-                    busdBalance: busdBalanceFormatted,
-                    accountAddress: accounts[0],
-                    agcaBalance: agcaBalanceFormatted
+            //     dispatch(updateBalance({
+            //         bnbBalance: bnbBalanceFormatted,
+            //         usdtBalance: usdtBalanceFormatted,
+            //         busdBalance: busdBalanceFormatted,
+            //         accountAddress: address,
+            //         agcaBalance: agcaBalanceFormatted
 
-                }))
-                dispatch(userChange())
-                dispatch(adminChange())
-            })
+            //     }))
+            //     dispatch(userChange())
+            //     dispatch(adminChange())
+            // })
         } else {
             if (import.meta.env.VITE_APP_NODE_ENV === 'production') {
                 try {
@@ -197,7 +202,7 @@ export const connectWallet = () => async (dispatch) => {
         }
     } catch (err) {
         dispatch(error(err))
-    }
+    }}
 }
 
 

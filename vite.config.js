@@ -58,11 +58,15 @@ export default defineConfig({
   base: './',
   optimizeDeps: {
     esbuildOptions: {
+      target: "esnext",
       // Node.js global to browser globalThis
       define: {
         global: 'globalThis'
 
       },
+        supported: { 
+          bigint: true 
+        },
       // Enable esbuild polyfill plugins
       plugins: [
         NodeGlobalsPolyfillPlugin({
@@ -86,6 +90,7 @@ export default defineConfig({
         // used during production bundling
       rollupNodePolyFill()
       ]
-    }
+    },
+    target: ["esnext"]
   }
 })

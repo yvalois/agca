@@ -5,6 +5,9 @@ import { BsCheckLg } from 'react-icons/bs'
 import { resetError, saveData, signMessage } from './redux/userAction';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { useWeb3Modal } from '@web3modal/react'
+import { useAccount, useConnect, useDisconnect, useSignMessage, useNetwork, useSwitchNetwork  } from 'wagmi'
+
 
 const Form = () => {
   const dispatch = useDispatch()
@@ -82,10 +85,6 @@ const Form = () => {
     }
   }
 
-  const connect = () => {
-    dispatch(connectWallet())
-  }
-
 
   const verifyAddress = () => {
     dispatch(signMessage(accountAddress))
@@ -140,6 +139,21 @@ const Form = () => {
 
 
   console.log(errorMsg)
+
+  
+  const { isOpen, open, close, setDefaultChain } = useWeb3Modal() 
+  const {  address: addresss, isConnecting, isDisconnected, isConnected, } = useAccount()
+
+  const { disconnect } = useDisconnect()
+  const {chain} = useNetwork()
+
+
+
+  const abrir =()=>{
+    if(!isConnected){
+      open()
+    }
+  }
 
 
   return (
@@ -257,8 +271,8 @@ const Form = () => {
 
 
                     <button
-                      onClick={connect}
-                      type="button" className="btn btn-primary">Connect Wallet
+                      onClick={open}
+                      type="button" className="btn btn-primary">{isConnected && accountAddress === null ? 'Conectando...' : 'Connect Wallet'}
                     </button>
 
                   )}
