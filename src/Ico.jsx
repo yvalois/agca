@@ -484,7 +484,7 @@ const Ico = () => {
                         <div>
                             {agcaBalance > 1500 ?
                                 <>
-                                    {!referal.referCode &&
+                                    {referal.referCode === null &&
                                         <button className='btn btn-primary'
                                             onClick={getVerifycode} >
                                             Generar enlace de Referido
