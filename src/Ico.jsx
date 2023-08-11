@@ -38,7 +38,7 @@ const Ico = () => {
     const [calculatePrice, setCalculatePrice] = useState(0)
     const [busdAllowance, setBusdAllowance] = useState(0)
     const [usdtAllowance, setUsdtAllowance] = useState(0)
-    const [busdRefAllowance , setBusdRefAllowance] = useState(0)
+    const [busdRefAllowance, setBusdRefAllowance] = useState(0)
     const [usdtRefAllowance, setUsdtRefAllowance] = useState(0)
     const [loading, setLoading] = useState(false)
 
@@ -52,10 +52,10 @@ const Ico = () => {
         setChoiceToken(token)
     }
 
-        const url = ()=>{
-        const aux = window.location.href.split("ico") 
+    const url = () => {
+        const aux = window.location.href.split("ico")
         return aux[0] + 'connect/'
-    }   
+    }
 
     const AGCA_PRICE = AgcaPrice;
     const AGCA_MAX_SUPPLY = 38000000;
@@ -420,7 +420,7 @@ const Ico = () => {
             timer: 1500
         })
     }
-    const link =  url();
+    const link = url();
 
 
     return (
@@ -481,20 +481,24 @@ const Ico = () => {
                         <p style={{ color: 'red' }}>Cuenta con 1200 tokens AGCA para generar tu enlace de referido *</p>
                         <p style={{ color: 'red' }}>Minimo 500.000 Agca para hacer el cambio</p>
                         Balance: {agcaBalance} AGCA
-                        {/* <div>
+                        <div>
                             {agcaBalance > 1500 ?
                                 <>
-                                    {referal.referCode === null &&
-                                        <button className='btn btn-primary'
+                                    {/* {referal.referCode === null &&
+             
+                                    }
+                                    <br /> */}
+                                    {referal ?
+                                        (<button
+                                            onClick={copyToClipboard}
+                                            className='btn btn-primary my-2'
+                                        >copiar: {link + referal.referCode}</button>)
+                                        :
+                                        (<button className='btn btn-primary'
                                             onClick={getVerifycode} >
                                             Generar enlace de Referido
-                                        </button>
+                                        </button>)
                                     }
-                                    <br />
-                                    {referal && <button
-                                        onClick={copyToClipboard}
-                                        className='btn btn-primary my-2'
-                                    >copiar: {link + referal.referCode}</button>}
                                 </>
                                 :
                                 <>
@@ -504,7 +508,7 @@ const Ico = () => {
                                     </button>
                                 </>
                             }
-                        </div> */}
+                        </div>
                     </div>
                 </div>
                 <div className='my-4'>
@@ -514,7 +518,7 @@ const Ico = () => {
                         value={amount}
 
                     /><br />
-                    <h6> AGCA disponibles: {referer? agcaReferInContract: agcaInContract}</h6>
+                    <h6> AGCA disponibles: {referer ? agcaReferInContract : agcaInContract}</h6>
                     <div className='d-flex justify-content-center'>
 
                         {!referer && choiceToken === 'busd' && busdAllowance <= amount && amount > 0 &&
@@ -570,19 +574,19 @@ const Ico = () => {
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
                                     :
-                                    `Comprar ${calculatePrice} BNB`
+                                    `Comprar ${calculatePrice} en BNB`
                                 }
                             </button>
                         }
 
                         {referer && choiceToken === 'bnb' &&
                             <button className={`btn  px-5 py-2 fw-bold btn-dark`}
-                                onClick={handleBuyRefer}>
+                                onClick={handleBuy}>
                                 {loading ? <div className="spinner-border text-light" role="status">
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
                                     :
-                                    `Comprar ${calculatePrice} BNB`
+                                    `Comprar ${calculatePrice} en BNB`
                                 }
                             </button>
                         }
@@ -595,20 +599,20 @@ const Ico = () => {
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :
-                                    `Comprar ${calculatePrice} BUSD`
+                                    `Comprar ${calculatePrice} en BUSD`
                                 }
                             </button>
                         }
 
                         {referer && choiceToken === 'busd' && busdRefAllowance >= amount &&
                             <button className={`btn  px-5 py-2 fw-bold btn-warning`}
-                                onClick={handleBuyRefer}>
+                                onClick={handleBuy}>
                                 {loading ?
                                     <div className="spinner-border text-light" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :
-                                    `Comprar ${calculatePrice} BUSD`
+                                    `Comprar ${calculatePrice} en BUSD`
                                 }
                             </button>
                         }
@@ -621,7 +625,7 @@ const Ico = () => {
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :
-                                    `Comprar ${calculatePrice} USDT`
+                                    `Comprar ${calculatePrice} en USDT`
                                 }
 
                             </button>
@@ -629,13 +633,13 @@ const Ico = () => {
 
                         {referer && choiceToken === 'usdt' && usdtRefAllowance >= amount &&
                             <button className={`btn  px-5 py-2 fw-bold btn-success`}
-                                onClick={handleBuyRefer}>
+                                onClick={handleBuy}>
                                 {loading ?
                                     <div className="spinner-border text-light" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :
-                                    `Comprar ${calculatePrice} USDT`
+                                    `Comprar ${calculatePrice} en USDT`
                                 }
 
                             </button>
