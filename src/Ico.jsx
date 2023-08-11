@@ -18,7 +18,6 @@ const Ico = () => {
     const dispatch = useDispatch()
     const { accountAddress, usdtBalance, busdBalance, agcaBalance, bnbBalance, instance, icoContract, icoReferContract, usdtContract, busdContract, AgcaPrice } = useSelector(state => state.blockchain)
     const { user, formValiddated, referal, referer } = useSelector(state => state.user)
-    console.log("referer",referer)
     const { dataloaded, agcaInContract, bnbprice, agcaReferInContract } = useSelector(state => state.ico)
     useEffect(() => {
         if (!formValiddated) {
