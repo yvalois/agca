@@ -481,7 +481,7 @@ const Ico = () => {
                         <p style={{ color: 'red' }}>Cuenta con 1200 tokens AGCA para generar tu enlace de referido *</p>
                         <p style={{ color: 'red' }}>Minimo 500.000 Agca para hacer el cambio</p>
                         Balance: {agcaBalance} AGCA
-                        <div>
+                        {/* <div>
                             {agcaBalance > 1500 ?
                                 <>
                                     {referal.referCode === null &&
@@ -504,7 +504,7 @@ const Ico = () => {
                                     </button>
                                 </>
                             }
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='my-4'>
