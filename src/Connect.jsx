@@ -117,7 +117,7 @@ const handleConnect = async() => {
             <br/>
             {loading && 
             <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+                <span className="visually-hidden">Loading... </span>
             </div>
             }
             {!loading &&
