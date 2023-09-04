@@ -14,25 +14,28 @@ import { Web3Modal } from '@web3modal/react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { arbitrum, mainnet, polygon, bsc} from 'wagmi/chains'
 import { getWebSocketPublicClient } from '@wagmi/core'
+import { ConnectKitProvider, ConnectKitButton, getDefaultConfig } from "connectkit"
 
 function App() {
 
   const chains = [bsc]  
 
-  const projectId = '7ecc030dc52cdc0986c6045ad928b12a'
-  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
-  const wagmiConfig = createConfig({
-    autoConnect: false,
-    connectors: w3mConnectors({ projectId, chains }),
-    publicClient
-  })
-  const ethereumClient = new EthereumClient(wagmiConfig, chains)
+  const wagmiConfig = createConfig(
+    getDefaultConfig({
+      appName: "Agca",
+      alchemyId: "DJywCZ0RyjPY_YdHLaJ67-kRzLVuNc_J", // or infuraId
+      walletConnectProjectId: "7ecc030dc52cdc0986c6045ad928b12a",
+      chains,
+    }),
+  );
+
+
 
   return (
     <WagmiConfig config={wagmiConfig}>
     <div className="App">
       <HashRouter>
-    <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+      <ConnectKitProvider>
         <Routes>
           <Route path="/" element={<Layout/>}>
           <Route index  element={<Connect/>}/>
@@ -43,6 +46,7 @@ function App() {
           <Route path="/admin" element={<Administrador/>}/>
           </Route>
         </Routes>
+        </ConnectKitProvider>
       </HashRouter>
     </div>
     </WagmiConfig>

@@ -71,8 +71,10 @@ export const connectWallet = (address, signer, provider, client) =>  {
         // const signer = provider.getSigner();
         
         // const accounts = await provider.listAccounts();
-
+        alert("aaaaaaaa")
+        console.log(provider)
         const networkId = await provider.getNetwork();
+        console.log(networkId.chainId)
         if (import.meta.env.VITE_APP_NODE_ENV === 'production' && networkId.chainId === 56 ||
             import.meta.env.VITE_APP_NODE_ENV === 'development' && networkId.chainId === 97) {
             const busdContract = new ethers.Contract(BUSD_ADDRESS, erc20Abi, signer);
@@ -84,11 +86,11 @@ export const connectWallet = (address, signer, provider, client) =>  {
             //const icoReferContract = new ethers.Contract(ICO_REFER_ADDRESS, icoReferAbi, signer);
 
             const busdBalance = await busdContract.balanceOf(address);
-            console.log(busdBalance);
             const usdtBalance = await usdtContract.balanceOf(address);
             const agcaBalance = await agcaContract.balanceOf(address);
 
                 
+            alert("eeeeeeeeee")
 
             const bnbBalance = await provider.getBalance(address);
 
@@ -97,6 +99,7 @@ export const connectWallet = (address, signer, provider, client) =>  {
             const agcaBalanceFormatted = parseFloat(ethers.utils.formatUnits(agcaBalance, 18)).toFixed(4);
             const bnbBalanceFormatted = parseFloat(ethers.utils.formatUnits(bnbBalance, 18)).toFixed(4);
             const AgcaPrice = await icoContract.AGCA_PRICE()
+            alert("iiiiiii")
 
             dispatch(dataLoaded({
                 usdtContract,

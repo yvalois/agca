@@ -3,7 +3,9 @@
 
 }
 
-
+body > iframe {
+  display: none;
+}
 body{
   background: url('./assets/bgwhite.jpg') no-repeat center center fixed;
   

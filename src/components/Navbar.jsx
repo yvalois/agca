@@ -68,8 +68,11 @@ const Navbar = () => {
   }
   useEffect(() => {
       if(isConnected && accountAddress === null && is === false && chain?.unsupported !== undefined && chain.unsupported === false) {
+        console.log("jija")
         getSign();
         setIs(true)
+      }else if(!isConnected && accountAddress === null){
+        setIs(false)
       }
   }, [isConnected, accountAddress,  chain, is])
 
