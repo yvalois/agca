@@ -33,9 +33,10 @@ function App() {
 
   return (
     <WagmiConfig config={wagmiConfig}>
+      <ConnectKitProvider>
+
     <div className="App">
       <HashRouter>
-      <ConnectKitProvider>
         <Routes>
           <Route path="/" element={<Layout/>}>
           <Route index  element={<Connect/>}/>
@@ -46,9 +47,10 @@ function App() {
           <Route path="/admin" element={<Administrador/>}/>
           </Route>
         </Routes>
-        </ConnectKitProvider>
       </HashRouter>
     </div>
+    </ConnectKitProvider>
+
     </WagmiConfig>
   )
 }

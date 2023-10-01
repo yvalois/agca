@@ -17,6 +17,6 @@ export const contract = () => {
                 busdContract: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
                 agcaContract: '0x8d5209FFa362a9A759437464eD61647Bb9C85Bb2',
                 icoContract: '0x8C87D08A4d501E63A688D01cc4981299CDCdfcF4',
-                RPC_URL: 'https://bsc-dataseed1.ninicoin.io',
+                RPC_URL: 'https://bsc-dataseed.binance.org/',
             })}
 }
