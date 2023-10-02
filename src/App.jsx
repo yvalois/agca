@@ -28,9 +28,6 @@ function App() {
       chains,
     }),
   );
-
-
-
   return (
     <WagmiConfig config={wagmiConfig}>
       <ConnectKitProvider>

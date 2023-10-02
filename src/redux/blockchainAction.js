@@ -65,6 +65,7 @@ const adminChange = () => ({
 export const connectWallet = (address, signer, provider, client) =>  {
     return async (dispatch)=>{
     dispatch(loading())
+
     try {
         // const instance = await web3Modal.connect(providerOptions);
         // const provider = new ethers.providers.Web3Provider(instance);

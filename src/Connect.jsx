@@ -19,7 +19,7 @@ const Connect = () => {
   const navigate = useNavigate()
   const { refer } = useParams()
   const { userLoaded, formValiddated, loading } = useSelector(state => state.user)
-  const { accountAddress } = useSelector(state => state.blockchain)
+  const { accountAddress, loading: loadingb } = useSelector(state => state.blockchain)
 
   const { referal } = useSelector(state => state.user)
   const [is, setIs] = useState(false)
@@ -122,7 +122,7 @@ const Connect = () => {
               return (
                 <button className='btn btn-primary'
                   onClick={show}
-                >{isConnected && accountAddress === null ? 'Conectando...' : 'Conectar'}</button>);
+                >{loadingb ? 'Conectando...' : 'Conectar'}</button>);
             }}
           </ConnectKitButton.Custom>
         }

@@ -11,7 +11,7 @@ import {getEthersProvider,getEthersSigner } from '../utils/ethers.js'
 import {  getPublicClient, getWalletClient } from '@wagmi/core'
 
 const Navbar = () => {
-  const { accountAddress } = useSelector(state => state.blockchain)
+  const { accountAddress, loading,  errorMsg } = useSelector(state => state.blockchain)
  const {isAdmin} = useSelector(state => state.admin)
   const { userLoaded } = useSelector(state => state.user)
 
@@ -67,13 +67,13 @@ const Navbar = () => {
 
   }
   useEffect(() => {
-      if(isConnected && accountAddress === null && is === false && chain?.unsupported !== undefined && chain.unsupported === false) {
+      if(chain?.unsupported !== undefined && chain.unsupported === false) {
         getSign();
         setIs(true)
-      }else if(!isConnected && accountAddress === null){
+      }else if(chain?.unsupported !== undefined && chain.unsupported === true){
         setIs(false)
       }
-  }, [isConnected, accountAddress,  chain, is])
+  }, [chain, errorMsg])
 
   const abrir =()=>{
     if(!isConnected){
@@ -110,7 +110,7 @@ const Navbar = () => {
               ) : (
                 <button
                   onClick={abrir}
-                  className='btn btn-primary nav-link'>{isConnected && accountAddress === null ? 'Conectando...' : 'Conectar'}</button>
+                  className='btn btn-primary nav-link'>{loading ? 'Conectando...' : 'Conectar'}</button>
               )}
             </li>
           </ul>

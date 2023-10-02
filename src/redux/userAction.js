@@ -54,7 +54,7 @@ export const signMessage = (metaAddress) => async (dispatch) => {
             from: accountAddress,
         });
 
-        const res = await axios.get(`${api}/user/verify/${message[1].value}/${signature}`)
+        const res = await axios.get(`${api}/user/verify/${message[1].value}/${signature}`)  
 
 
         dispatch(userloaded({
